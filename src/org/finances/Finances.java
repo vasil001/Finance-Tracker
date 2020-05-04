@@ -14,16 +14,16 @@ import java.util.Date;
 public class Finances {
     private int id;
     private double amount;
-    private String Source;
-    private String Type;
+    private String source;
+    private String type;
     private Date date;
     private String notes;
 
     public Finances(int id, double amount, String Source, String Type, Date date, String notes) {
         this.id = id;
         this.amount = amount;
-        this.Source = Source;
-        this.Type = Type;
+        this.source = Source;
+        this.type = Type;
         this.date = date;
         this.notes = notes;
     }
@@ -37,11 +37,11 @@ public class Finances {
     }
 
     public String getSource() {
-        return Source;
+        return source;
     }
 
     public String getType() {
-        return Type;
+        return type;
     }
 
     public Date getDate() {
