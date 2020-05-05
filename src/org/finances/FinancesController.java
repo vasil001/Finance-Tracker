@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -19,7 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -33,29 +33,33 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author vasil
  */
 public class FinancesController implements Initializable {
-
+    
+    @FXML
+    private TextField tfID;
     @FXML
     private TextField tfAmount;
-    @FXML
-    private ChoiceBox<?> cbSource;
-    @FXML
-    private ChoiceBox<?> cbType;
     @FXML
     private DatePicker datepicker;
     @FXML
     private TextArea taNotes;
+    @FXML
+    private TextField tfSource;
+    @FXML
+    private TextField tfType;
+    
     @FXML
     private Button btnInsert;
     @FXML
     private Button btnUpdate;
     @FXML
     private Button btnDelete;
+    
     @FXML
     private TableView<Finances> tvFinances;
     @FXML
     private TableColumn<Finances, Integer> colId;
     @FXML
-    private TableColumn<Finances, Double> colAmount;
+    private TableColumn<Finances, Integer> colAmount;
     @FXML
     private TableColumn<Finances, String> colSource;
     @FXML
@@ -64,6 +68,8 @@ public class FinancesController implements Initializable {
     private TableColumn<Finances, Date> colDate;
     @FXML
     private TableColumn<Finances, String> colNotes;
+
+
 
     /**
      * Initializes the controller class.
@@ -75,6 +81,13 @@ public class FinancesController implements Initializable {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
+        if(event.getSource() == btnInsert) {
+            insertRecord();
+        }else if (event.getSource() == btnUpdate){
+            updateRecord();
+        }else if (event.getSource() == btnDelete) {
+            deleteRecord();
+        }
     }
 
      public Connection getConnection(){
@@ -100,7 +113,7 @@ public class FinancesController implements Initializable {
             rs = st.executeQuery(query);
             Finances finances;
             while(rs.next()){   // If these is sth. on the list then do:
-                finances = new Finances(rs.getInt("id"), rs.getDouble("amount"), 
+                finances = new Finances(rs.getInt("id"), rs.getInt("amount"), 
                         rs.getString("source"), rs.getString("type"), 
                         rs.getDate("date"), rs.getString("notes"));
                 financesList.add(finances);
@@ -116,13 +129,61 @@ public class FinancesController implements Initializable {
     
     public void showFinances(){
         ObservableList<Finances> list = getFinancesList();
+        
         colId.setCellValueFactory(new PropertyValueFactory<Finances, Integer>("id"));
-        colAmount.setCellValueFactory(new PropertyValueFactory<Finances, Double>("amount"));
+        colAmount.setCellValueFactory(new PropertyValueFactory<Finances, Integer>("amount"));
         colSource.setCellValueFactory(new PropertyValueFactory<Finances, String>("source"));
         colType.setCellValueFactory(new PropertyValueFactory<Finances, String>("type"));
+        colDate.setCellValueFactory(new PropertyValueFactory<Finances, Date>("date"));
         colNotes.setCellValueFactory(new PropertyValueFactory<Finances, String>("notes"));
        
         tvFinances.setItems(list);
+        System.out.println("Ping 2");
+
+    }
+    
+    private void insertRecord(){
+        System.out.println("ID: " + tfID.getText());
+        System.out.println("Amount: " + tfAmount.getText());
+        System.out.println("Source: " + tfSource.getText());
+        System.out.println("Type: " + tfType.getText());
+        System.out.println("Date: " + datepicker.getValue());
+        System.out.println("Notes: " + taNotes.getText());
+
+        String query = "INSERT INTO myData.finances (id, amount, source, type, date, notes) "
+                              + "VALUES ("+ tfID.getText()+ "," + tfAmount.getText()+ ",'" + tfSource.getText() + "','" + 
+                                  tfType.getText()  + "','" + datepicker.getValue() + "','" + taNotes.getText() + "')";
+        executeQuery(query);
+        showFinances();
+      }
+    
+    public void updateRecord(){
+        String query = "UPDATE myData.finances SET amount = " + tfAmount.getText() + ", source = '" + tfSource.getText() +
+                "', type = '" + tfType.getText() + "', date = '" + datepicker.getValue() + "', notes = '" + taNotes.getText() + 
+                "' WHERE id = " + tfID.getText() + "";
+        executeQuery(query);
+        showFinances();
+    }
+    
+    public void deleteRecord(){
+        String query = "DELETE FROM myData.finances WHERE id=" + tfID.getText();
+        executeQuery(query);
+        showFinances();
+    }
+
+    public void executeQuery(String query){
+        Connection conn = getConnection();
+        Statement st;
+        
+        try{
+            st = conn.createStatement();
+            st.executeUpdate(query);
+            System.out.println("Query executed!");
+        }catch(SQLException ex){
+            ex.printStackTrace();
+            System.out.println("ERROR executeQuery..." + ex.getMessage());
+
+        }
     }
     
 }
