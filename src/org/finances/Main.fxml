@@ -11,8 +11,8 @@
 <AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.finances.MainController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Button layoutX="545.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="95.0" text="Show Graphs" />
-      <LineChart layoutX="26.0" layoutY="26.0" prefHeight="387.0" prefWidth="492.0">
+      <Button fx:id="btnShowGraphs" layoutX="545.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="95.0" text="Show Graphs" />
+      <LineChart fx:id="linechart" layoutX="26.0" layoutY="26.0" prefHeight="387.0" prefWidth="492.0" title="Finance-Tracker">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
