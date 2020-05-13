@@ -8,10 +8,10 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="450.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.finances.MainController">
+<AnchorPane id="AnchorPane" prefHeight="451.0" prefWidth="664.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.finances.MainController">
     <children>
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <Button fx:id="btnShowGraphs" layoutX="545.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="95.0" text="Show Graphs" />
+      <Button fx:id="btnShowGraphs" layoutX="545.0" layoutY="26.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Show all" />
       <LineChart fx:id="linechart" layoutX="26.0" layoutY="26.0" prefHeight="387.0" prefWidth="492.0" title="Finance-Tracker">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
@@ -21,7 +21,8 @@
         </yAxis>
       </LineChart>
       <Separator layoutX="535.0" layoutY="13.0" orientation="VERTICAL" prefHeight="423.0" prefWidth="5.0" />
-      <Button layoutX="545.0" layoutY="164.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="95.0" text="Export to Excel" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="btnFinances" layoutX="545.0" layoutY="96.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="95.0" text="Finances" />
+      <Button layoutX="545.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Export to Excel" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="btnFinances" layoutX="545.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Finances" />
+      <Button fx:id="btnFilter" layoutX="545.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Filter" />
     </children>
 </AnchorPane>

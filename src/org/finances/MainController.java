@@ -38,6 +38,8 @@ public class MainController implements Initializable {
     private Button btnShowGraphs;
     @FXML
     private LineChart<String, Integer> linechart;
+    @FXML
+    private Button btnFilter;
     
  
     
@@ -51,6 +53,13 @@ public class MainController implements Initializable {
             stage.show();     
           }else if(event.getSource() == btnShowGraphs){
               showGraphs();
+          }else if(event.getSource() == btnFilter){
+            Parent part = FXMLLoader.load(getClass().getResource("Filter.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(part);
+            stage.setScene(scene);
+            stage.show();     
+            filterGraphs();
           }
     }
     
@@ -79,5 +88,9 @@ public class MainController implements Initializable {
             System.out.println("ERROR getFinancesList(): " + ex.getMessage());
 
         }
-    }  
+    }
+    
+    public void filterGraphs(){
+        
+    }
 }

@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -26,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -186,4 +188,18 @@ public class FinancesController implements Initializable {
         }
     }
     
+    public LocalDate convertToLocalDateViaSqlDate(Date dateToConvert) {
+        return new java.sql.Date(dateToConvert.getTime()).toLocalDate();
+    }
+
+    @FXML
+    private void handleMouseAction(MouseEvent event) {
+        Finances finances = tvFinances.getSelectionModel().getSelectedItem();
+        tfID.setText("" + finances.getId());
+        tfAmount.setText("" + finances.getAmount());
+        datepicker.setValue(convertToLocalDateViaSqlDate(finances.getDate()));
+        taNotes.setText(finances.getNotes());
+        tfSource.setText(finances.getSource());
+        tfType.setText(finances.getType());
+    }   
 }

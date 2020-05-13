@@ -51,7 +51,8 @@ public class Finances {
     public String getNotes() {
         return notes;
     }
-    
+
+ 
     
     
     
