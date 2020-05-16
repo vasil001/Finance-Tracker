@@ -4,6 +4,7 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,8 +22,10 @@
         </yAxis>
       </LineChart>
       <Separator layoutX="535.0" layoutY="13.0" orientation="VERTICAL" prefHeight="423.0" prefWidth="5.0" />
-      <Button layoutX="545.0" layoutY="220.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Export to Excel" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="btnFinances" layoutX="545.0" layoutY="154.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Finances" />
-      <Button fx:id="btnFilter" layoutX="545.0" layoutY="89.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Filter" />
+      <Button layoutX="545.0" layoutY="162.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Export to Excel" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="btnFinances" layoutX="545.0" layoutY="96.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="49.0" prefWidth="108.0" text="Finances" />
+      <CheckBox fx:id="cbSource1" layoutX="101.0" layoutY="413.0" mnemonicParsing="false" onAction="#handleEvent" text="Source 1" />
+      <CheckBox fx:id="cbSource2" layoutX="240.0" layoutY="413.0" mnemonicParsing="false" onAction="#handleEvent" text="Source 2" />
+      <CheckBox fx:id="cbSource3" layoutX="383.0" layoutY="413.0" mnemonicParsing="false" onAction="#handleEvent" text="Source 3" />
     </children>
 </AnchorPane>

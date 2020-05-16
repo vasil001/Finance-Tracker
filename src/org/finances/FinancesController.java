@@ -140,7 +140,6 @@ public class FinancesController implements Initializable {
         colNotes.setCellValueFactory(new PropertyValueFactory<Finances, String>("notes"));
        
         tvFinances.setItems(list);
-        System.out.println("Ping 2");
 
     }
     

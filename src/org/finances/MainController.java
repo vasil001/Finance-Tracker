@@ -5,6 +5,7 @@
  */
 package org.finances;
 
+import com.mysql.jdbc.Util;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -20,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -40,6 +42,12 @@ public class MainController implements Initializable {
     private LineChart<String, Integer> linechart;
     @FXML
     private Button btnFilter;
+    @FXML
+    private CheckBox cbSource1;
+    @FXML
+    private CheckBox cbSource2;
+    @FXML
+    private CheckBox cbSource3;
     
  
     
@@ -59,7 +67,6 @@ public class MainController implements Initializable {
             Scene scene = new Scene(part);
             stage.setScene(scene);
             stage.show();     
-            filterGraphs();
           }
     }
     
@@ -78,19 +85,100 @@ public class MainController implements Initializable {
             ResultSet rs = c.createStatement().executeQuery(query);
             XYChart.Series<String, Integer>  series = new XYChart.Series<>();
             
-            while(rs.next()){   // If these is sth. on the list then do:
+            while(rs.next()){   // If there is sth. on the list then do:
                 series.getData().add(new XYChart.Data<>(rs.getString(2),rs.getInt(1)));
             }
             
             linechart.getData().add(series);
+            series.setName("All together");
             
         }catch(SQLException ex){
             System.out.println("ERROR getFinancesList(): " + ex.getMessage());
 
         }
     }
-    
-    public void filterGraphs(){
+
+    @FXML
+    private void handleEvent(ActionEvent event) {
+        if(cbSource1.isSelected()){
+            
+            linechart.getData().clear();
+            String query = "SELECT amount, date FROM myData.finances WHERE source = 'sparkasse' ORDER BY date";
+            FinancesController f = new FinancesController();
+            Connection c = f.getConnection(); 
+
+         try{
+            
+            ResultSet rs = c.createStatement().executeQuery(query);
+
+            XYChart.Series<String, Integer>  series = new XYChart.Series<>();
+            
+            while(rs.next()){   // If there is sth. on the list then do:   
+                series.getData().add(new XYChart.Data<>(rs.getString(2),rs.getInt(1)));
+            }    
+
+            linechart.getData().add(series);
+            series.setName("Sparkasse");
+            
+        }catch(SQLException ex){
+            System.out.println("ERROR handleEvent(): " + ex.getMessage());
+
+        }            
+            
+        }else if (cbSource2.isSelected()){
+             
+            linechart.getData().clear();
+
+            String query = "SELECT amount, date FROM myData.finances WHERE source = 'dkb' ORDER BY date";
+            FinancesController f = new FinancesController();
+            Connection c = f.getConnection(); 
+
+         try{
+            
+            ResultSet rs = c.createStatement().executeQuery(query);
+
+            XYChart.Series<String, Integer>  series = new XYChart.Series<>();
+            
+            while(rs.next()){   // If there is sth. on the list then do:
+                
+                series.getData().add(new XYChart.Data<>(rs.getString(2),rs.getInt(1)));
+            }    
+
+            linechart.getData().add(series);
+            series.setName("DKB");
+            
+        }catch(SQLException ex){
+            System.out.println("ERROR handleEvent(): " + ex.getMessage());
+
+        }            
         
+        }else if (cbSource3.isSelected()){
+           
+            linechart.getData().clear();
+
+            String query = "SELECT amount, date FROM myData.finances WHERE source = 'cash' ORDER BY date";
+            FinancesController f = new FinancesController();
+            Connection c = f.getConnection(); 
+
+         try{
+            
+            ResultSet rs = c.createStatement().executeQuery(query);
+
+            XYChart.Series<String, Integer>  series = new XYChart.Series<>();
+            
+            while(rs.next()){   // If there is sth. on the list then do:
+                
+                series.getData().add(new XYChart.Data<>(rs.getString(2),rs.getInt(1)));
+            }    
+
+            linechart.getData().add(series);
+            series.setName("Cash");
+            
+        }catch(SQLException ex){
+            System.out.println("ERROR handleEvent(): " + ex.getMessage());
+
+        }            
+        
+        }
     }
 }
